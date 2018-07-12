@@ -87,7 +87,7 @@ export default class InputRange extends React.Component {
      * @private
      * @type {?Component}
      */
-    this.node = null;
+    this.nodeRef = React.createRef();
 
     /**
      * @private
@@ -395,7 +395,10 @@ export default class InputRange extends React.Component {
    */
   addDocumentMouseUpListener() {
     this.removeDocumentMouseUpListener();
-    this.node.ownerDocument.addEventListener('mouseup', this.handleMouseUp);
+    const node = this.nodeRef.current;
+    if (node) {
+      node.ownerDocument.addEventListener('mouseup', this.handleMouseUp);
+    }
   }
 
   /**
@@ -405,7 +408,10 @@ export default class InputRange extends React.Component {
    */
   addDocumentTouchEndListener() {
     this.removeDocumentTouchEndListener();
-    this.node.ownerDocument.addEventListener('touchend', this.handleTouchEnd);
+    const node = this.nodeRef.current;
+    if (node) {
+      node.ownerDocument.addEventListener('touchend', this.handleTouchEnd);
+    }
   }
 
   /**
@@ -414,7 +420,10 @@ export default class InputRange extends React.Component {
    * @return {void}
    */
   removeDocumentMouseUpListener() {
-    this.node.ownerDocument.removeEventListener('mouseup', this.handleMouseUp);
+    const node = this.nodeRef.current;
+    if (node) {
+      node.ownerDocument.removeEventListener('mouseup', this.handleMouseUp);
+    }
   }
 
   /**
@@ -423,7 +432,10 @@ export default class InputRange extends React.Component {
    * @return {void}
    */
   removeDocumentTouchEndListener() {
-    this.node.ownerDocument.removeEventListener(
+    const node = this.nodeRef.current;
+    if (node) {
+      node.ownerDocument.removeEventListener(
+    }
       'touchend',
       this.handleTouchEnd
     );
@@ -787,9 +799,7 @@ export default class InputRange extends React.Component {
     return (
       <div
         aria-disabled={this.props.disabled}
-        ref={node => {
-          this.node = node;
-        }}
+        ref={this.nodeRef}
         className={componentClassName}
         onKeyDown={this.handleKeyDown}
         onKeyUp={this.handleKeyUp}
