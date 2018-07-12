@@ -142,7 +142,7 @@ export default class InputRange extends React.Component {
       return trackNode.getClientRect();
     }
 
-    return {}
+    return {};
   }
 
   /**
@@ -439,11 +439,8 @@ export default class InputRange extends React.Component {
   removeDocumentTouchEndListener() {
     const node = this.nodeRef.current;
     if (node) {
-      node.ownerDocument.removeEventListener(
+      node.ownerDocument.removeEventListener('touchend', this.handleTouchEnd);
     }
-      'touchend',
-      this.handleTouchEnd
-    );
   }
 
   /**
@@ -822,7 +819,7 @@ export default class InputRange extends React.Component {
         <Track
           classNames={this.props.classNames}
           draggableTrack={this.props.draggableTrack}
-          reference={this.trackNodeRef}
+          ref={this.trackNodeRef}
           percentages={percentages}
           onTrackDrag={this.handleTrackDrag}
           onTrackMouseDown={this.handleTrackMouseDown}

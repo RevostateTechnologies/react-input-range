@@ -35,7 +35,7 @@ export default class Slider extends React.Component {
       onSliderKeyDown: PropTypes.func.isRequired,
       percentage: PropTypes.number.isRequired,
       type: PropTypes.string.isRequired,
-      value: PropTypes.number.isRequired,
+      value: PropTypes.number.isRequired
     };
   }
 
@@ -83,7 +83,7 @@ export default class Slider extends React.Component {
     const perc = (this.props.percentage || 0) * 100;
     const style = {
       position: 'absolute',
-      left: `${perc}%`,
+      left: `${perc}%`
     };
 
     return style;
@@ -134,7 +134,10 @@ export default class Slider extends React.Component {
    * @return {void}
    */
   removeDocumentMouseMoveListener() {
-    this.node.ownerDocument.removeEventListener('mousemove', this.handleMouseMove);
+    this.node.ownerDocument.removeEventListener(
+      'mousemove',
+      this.handleMouseMove
+    );
   }
 
   /**
@@ -150,7 +153,10 @@ export default class Slider extends React.Component {
    * @return {void}
    */
   removeDocumentTouchMoveListener() {
-    this.node.ownerDocument.removeEventListener('touchmove', this.handleTouchMove);
+    this.node.ownerDocument.removeEventListener(
+      'touchmove',
+      this.handleTouchMove
+    );
   }
 
   /**
@@ -158,7 +164,10 @@ export default class Slider extends React.Component {
    * @return {void}
    */
   removeDocumentTouchEndListener() {
-    this.node.ownerDocument.removeEventListener('touchend', this.handleTouchEnd);
+    this.node.ownerDocument.removeEventListener(
+      'touchend',
+      this.handleTouchEnd
+    );
   }
 
   /**
@@ -241,12 +250,16 @@ export default class Slider extends React.Component {
     return (
       <span
         className={this.props.classNames.sliderContainer}
-        ref={(node) => { this.node = node; }}
-        style={style}>
+        ref={node => {
+          this.node = node;
+        }}
+        style={style}
+      >
         <Label
           classNames={this.props.classNames}
           formatLabel={this.props.formatLabel}
-          type="value">
+          type="value"
+        >
           {this.props.value}
         </Label>
 
@@ -262,7 +275,8 @@ export default class Slider extends React.Component {
           onMouseDown={this.handleMouseDown}
           onTouchStart={this.handleTouchStart}
           role="slider"
-          tabIndex="0" />
+          tabIndex="0"
+        />
       </span>
     );
   }

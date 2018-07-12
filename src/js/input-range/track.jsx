@@ -42,7 +42,7 @@ export default class Track extends React.Component {
      * @private
      * @type {?Component}
      */
-    this.node = null;
+    this.nodeRef = React.createRef();
     this.trackDragEvent = null;
   }
 
@@ -51,7 +51,9 @@ export default class Track extends React.Component {
    * @return {ClientRect}
    */
   getClientRect() {
-    return this.node.getBoundingClientRect();
+    return this.nodeRef.current
+      ? this.nodeRef.current.getBoundingClientRect()
+      : {};
   }
 
   /**
@@ -73,7 +75,12 @@ export default class Track extends React.Component {
    */
   addDocumentMouseMoveListener() {
     this.removeDocumentMouseMoveListener();
-    this.node.ownerDocument.addEventListener('mousemove', this.handleMouseMove);
+    if (this.nodeRef.current) {
+      this.nodeRef.current.ownerDocument.addEventListener(
+        'mousemove',
+        this.handleMouseMove
+      );
+    }
   }
 
   /**
@@ -83,7 +90,12 @@ export default class Track extends React.Component {
    */
   addDocumentMouseUpListener() {
     this.removeDocumentMouseUpListener();
-    this.node.ownerDocument.addEventListener('mouseup', this.handleMouseUp);
+    if (this.nodeRef.current) {
+      this.nodeRef.current.ownerDocument.addEventListener(
+        'mouseup',
+        this.handleMouseUp
+      );
+    }
   }
 
   /**
@@ -91,10 +103,12 @@ export default class Track extends React.Component {
    * @return {void}
    */
   removeDocumentMouseMoveListener() {
-    this.node.ownerDocument.removeEventListener(
-      'mousemove',
-      this.handleMouseMove
-    );
+    if (this.nodeRef.current) {
+      this.nodeRef.current.ownerDocument.removeEventListener(
+        'mousemove',
+        this.handleMouseMove
+      );
+    }
   }
 
   /**
@@ -102,7 +116,12 @@ export default class Track extends React.Component {
    * @return {void}
    */
   removeDocumentMouseUpListener() {
-    this.node.ownerDocument.removeEventListener('mouseup', this.handleMouseUp);
+    if (this.nodeRef.current) {
+      this.nodeRef.current.ownerDocument.removeEventListener(
+        'mouseup',
+        this.handleMouseUp
+      );
+    }
   }
 
   /**
@@ -182,7 +201,7 @@ export default class Track extends React.Component {
         className={this.props.classNames.track}
         onMouseDown={this.handleMouseDown}
         onTouchStart={this.handleTouchStart}
-        ref={this.props.reference}
+        ref={this.nodeRef}
       >
         <div
           style={activeTrackStyle}
