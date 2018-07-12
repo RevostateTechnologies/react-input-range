@@ -93,7 +93,7 @@ export default class InputRange extends React.Component {
      * @private
      * @type {?Component}
      */
-    this.trackNode = null;
+    this.trackNodeRef = React.createRef();
 
     /**
      * @private
@@ -137,7 +137,12 @@ export default class InputRange extends React.Component {
    * @return {ClientRect}
    */
   getTrackClientRect() {
-    return this.trackNode.getClientRect();
+    const trackNode = this.trackNodeRef.current;
+    if (trackNode) {
+      return trackNode.getClientRect();
+    }
+
+    return {}
   }
 
   /**
@@ -817,9 +822,7 @@ export default class InputRange extends React.Component {
         <Track
           classNames={this.props.classNames}
           draggableTrack={this.props.draggableTrack}
-          ref={trackNode => {
-            this.trackNode = trackNode;
-          }}
+          reference={this.trackNodeRef}
           percentages={percentages}
           onTrackDrag={this.handleTrackDrag}
           onTrackMouseDown={this.handleTrackMouseDown}

@@ -23,7 +23,7 @@ export default class Track extends React.Component {
       draggableTrack: PropTypes.bool,
       onTrackDrag: PropTypes.func,
       onTrackMouseDown: PropTypes.func.isRequired,
-      percentages: PropTypes.objectOf(PropTypes.number).isRequired,
+      percentages: PropTypes.objectOf(PropTypes.number).isRequired
     };
   }
 
@@ -59,7 +59,8 @@ export default class Track extends React.Component {
    * @return {Object} CSS styles
    */
   getActiveTrackStyle() {
-    const width = `${(this.props.percentages.max - this.props.percentages.min) * 100}%`;
+    const width = `${(this.props.percentages.max - this.props.percentages.min) *
+      100}%`;
     const left = `${this.props.percentages.min * 100}%`;
 
     return { left, width };
@@ -90,7 +91,10 @@ export default class Track extends React.Component {
    * @return {void}
    */
   removeDocumentMouseMoveListener() {
-    this.node.ownerDocument.removeEventListener('mousemove', this.handleMouseMove);
+    this.node.ownerDocument.removeEventListener(
+      'mousemove',
+      this.handleMouseMove
+    );
   }
 
   /**
@@ -144,7 +148,7 @@ export default class Track extends React.Component {
     const trackClientRect = this.getClientRect();
     const position = {
       x: clientX - trackClientRect.left,
-      y: 0,
+      y: 0
     };
 
     this.props.onTrackMouseDown(event, position);
@@ -178,10 +182,12 @@ export default class Track extends React.Component {
         className={this.props.classNames.track}
         onMouseDown={this.handleMouseDown}
         onTouchStart={this.handleTouchStart}
-        ref={(node) => { this.node = node; }}>
+        ref={this.props.reference}
+      >
         <div
           style={activeTrackStyle}
-          className={this.props.classNames.activeTrack} />
+          className={this.props.classNames.activeTrack}
+        />
         {this.props.children}
       </div>
     );
